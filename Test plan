@@ -1,0 +1,29 @@
+# Create a small stack of size 3
+my_stack = stack(3)
+
+print("--- Testing Initialization ---")
+print(f"Is empty? {my_stack.is_empty()}")  # Expected: True
+
+print("\n--- Testing Push Operations ---")
+my_stack.push("A")
+my_stack.push("B")
+my_stack.push("C")
+print(f"Current array: {my_stack.array}")  # Expected: ['A', 'B', 'C']
+print(f"Is full? {my_stack.is_full()}")    # Expected: True
+
+print("\n--- Testing Overflow Trigger ---")
+my_stack.push("D")                         # Expected: "The stack is full."
+
+print("\n--- Testing Pop Operations ---")
+print(f"Popped item: {my_stack.pop()}")     # Expected: C
+print(f"Popped item: {my_stack.pop()}")     # Expected: B
+print(f"Current array: {my_stack.array}")  # Expected: ['A', None, None]
+
+print("\n--- Testing Underflow Trigger ---")
+my_stack.pop()                              # Pops 'A'
+my_stack.pop()                              # Expected: "The stack is empty"
+
+print("\n--- Testing Pop Operations ---")
+my_stack.push("X")
+my_stack.push("Y")
+print(f"Current array: {my_stack.array}")
