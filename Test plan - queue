@@ -1,0 +1,42 @@
+# ==========================================
+# TEST CODE FOR THE QUEUE CLASS
+# ==========================================
+
+# 1. Initialize a queue with a maximum capacity of 3 items
+print("--- Initializing Queue (Size: 3) ---")
+q = queue(3)
+print(f"Is empty? {q.is_empty()}")  # Expected: True
+print(f"Is full?  {q.is_full()}")   # Expected: False
+
+# 2. Test Enqueue functionality up to the limit
+print("\n--- Enqueuing 3 Items ---")
+print(f"Enqueue 'A': {q.enqueue('A')}")
+print(f"Enqueue 'B': {q.enqueue('B')}")
+print(f"Enqueue 'C': {q.enqueue('C')}")
+print(f"Internal Array: {q.queue} | Front Index: {q.front} | Back Index: {q.back}")
+print(f"Is full now? {q.is_full()}")  # Expected: True
+
+# 3. Test Edge Case: Queue Overflow
+print("\n--- Testing Queue Overflow ---")
+print(f"Enqueue 'D' (Should Fail): {q.enqueue('D')}")  # Expected: "The queue is full." -> False
+
+# 4. Test Dequeue functionality (FIFO Order)
+print("\n--- Dequeuing 2 Items ---")
+print(f"Dequeued: {q.dequeue()}")  # Expected: 'A'
+print(f"Dequeued: {q.dequeue()}")  # Expected: 'B'
+print(f"Internal Array: {q.queue} | Front Index: {q.front} | Back Index: {q.back}")
+
+# 5. Test Edge Case: Circular Wraparound
+# The next enqueued item should loop back around and overwrite index 0
+print("\n--- Testing Circular Wraparound ---")
+print(f"Enqueue 'D' (Should wrap to index 0): {q.enqueue('D')}")
+print(f"Internal Array: {q.queue} | Front Index: {q.front} | Back Index: {q.back}")
+
+# 6. Dequeue remaining elements until empty
+print("\n--- Dequeuing remaining items ---")
+print(f"Dequeued: {q.dequeue()}")  # Expected: 'C' (at index 2)
+print(f"Dequeued: {q.dequeue()}")  # Expected: 'D' (at index 0) -> "Queue Emptied"
+
+# 7. Test Edge Case: Queue Underflow
+print("\n--- Testing Queue Underflow ---")
+print(f"Dequeued (Should Fail): {q.dequeue()}")  # Expected: "Queue Underflow" -> False
