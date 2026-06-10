@@ -1,0 +1,16 @@
+# Copy this setup code to use for your tests
+#         1
+#       /  \
+#      2    3
+#     / \  /
+#    4   5 6
+
+root = node(1)
+root.left = node(2)
+root.right = node(3)
+root.left.left = node(4)
+root.left.right = node(5)
+root.left.left = node(7)
+root.right.left = node(6)
+print(root.calculate_height(root.right))
+print(root.is_balanced(root.left.left))
