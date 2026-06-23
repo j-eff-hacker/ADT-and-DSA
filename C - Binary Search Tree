@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node{
+    int data;
+    struct Node  *right;
+    struct Node  *left;
+} node;
+
+typedef struct Binary_tree{
+    node *root;
+}binary_tree;
+
+typedef void (*NodeCallback)(const node *n);
+
+void transverse_inorder(const node *root, NodeCallback callback){
+    
+    if (root == NULL || callback == NULL){
+        return;
+    }
+    
+    transverse_inorder(root->left, callback);
+    callback(root);
+    transverse_inorder(root->right, callback);
+    
+}
+node* create_node(int new_data){
+    node *temp = calloc(1, sizeof(node));
+    if (temp == NULL){
+        printf("Error in making the Node");
+        exit(1);
+    }
+   
+    temp->data = new_data;
+   
+    return temp;
+}
+
+node* insert_node(int data, binary_tree *tree){
+    node *new_node = create_node(data);
+    
+    if (tree->root == NULL){
+        tree->root = new_node;
+        printf("Node added!!");
+        return new_node;
+    }
+    
+    node *current_node = tree->root;
+    node *parent = NULL;
+    
+    while (current_node != NULL){
+        parent = current_node;
+        if (new_node->data > current_node->data){
+            current_node = current_node->right;
+        }else if (new_node->data < current_node->data){
+            current_node = current_node->left;
+        }else{
+            printf("Node already in the BST");
+            free(new_node);
+            return NULL;
+        }
+    }
+    
+    if (new_node->data > parent->data){
+        parent->right = new_node;
+    }else if(new_node->data < parent->data){
+        parent->left = new_node;
+    }else{
+        printf("Node already in the BST");
+    }
+    
+    return new_node;
+}
+
+void free_tree(node *root){
+    if (root == NULL){
+        return;
+    }
+    node *current_node = root;
+    
+    free_tree(current_node->right);
+    free_tree(current_node->left);
+    free(current_node);
+    
+}
+
+int main(){
+    binary_tree my_tree = { .root = NULL };
+    
+    // Test inserting elements
+    insert_node(50, &my_tree);
+    insert_node(30, &my_tree);
+    insert_node(70, &my_tree);
+    insert_node(30, &my_tree); // Test duplicate tracking
+   
+    // Clean up allocated memory before exiting
+   free_tree(my_tree.root);
+   
+    
+    return 0;
+}
